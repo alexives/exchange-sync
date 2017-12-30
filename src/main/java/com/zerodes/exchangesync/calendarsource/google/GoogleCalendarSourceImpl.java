@@ -143,6 +143,9 @@ public class GoogleCalendarSourceImpl implements CalendarSource {
 		while (true) {
 			if (feed.getItems() != null) {
 				for (final Event event : feed.getItems()) {
+					if (event.getStatus().equals("cancelled")) {
+						continue;
+					}
 					final org.joda.time.DateTime eventStartDate = convertToJodaDateTime(event.getStart());
 					final org.joda.time.DateTime eventEndDate = coalesce(convertToJodaDateTime(event.getEnd()),
 							convertToJodaDateTime(event.getStart()));
